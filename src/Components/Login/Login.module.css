@@ -1,4 +1,38 @@
-.loginForm{
-    text-align: center;
-    font-style: italic;
+.loginForm {
+  display: flexbox;
+  margin: center;
+  position: center;
+  font-style: italic;
+}
+.label {
+    position: center;
+  text-align: center;
+}
+.inputField {
+  display: flexbox;
+  justify-content: center;
+  position: center;
+  text-align: center;
+  color: rgb(190, 10, 245);
+  flex-wrap: wrap;
+}
+.button {
+  padding: 10px 20px;
+  background-color: #396bb6;
+  color: rgb(243, 209, 209);
+  border: none;
+  cursor: pointer;
+  margin: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+button:hover {
+  background-color: #71da75;
+}
+button:active {
+  transform: scale(0.95);
+}
+button:focus {
+  outline: none;
 }

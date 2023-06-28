@@ -1,53 +1,86 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Login.module.css";
 
-export default function Login() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const setStorage = (key, value) => {
+  localStorage.setItem(key, JSON.stringify(value));
+};
+const getStorage = (key) => JSON.parse(localStorage.getItem(key));
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("First Name", firstName);
-    console.log("Last Name", lastName);
-    console.log("Email", email);
-    console.log("password", password);
-  };
+export default function () {
+  const [firstName, setFirstName] = useState(getStorage("firstName") ?? "");
+  const [lastName, setLastName] = useState(getStorage("lastName") ?? "");
+  const [email, setEmail] = useState(getStorage("email") ?? "");
+  const [password, setPassword] = useState(getStorage("password") ?? "");
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => isDisabled(), [firstName, lastName, email, password]);
+
+  function isDisabled() {
+    if (!!firstName && !!lastName && !!email && !!password) {
+      return setDisabled(false);
+    }
+    return setDisabled(true);
+  }
 
   return (
     <div className={styles.loginForm}>
-      <h1>LOGIN YOUR ACCOUNT</h1>
-      <form onSubmit={handleSubmit}>
+        <><h1>LOGIN YOUR ACCOUNT</h1></>
+      <form>
+        <label className={styles.label}> First Name </label>
         <input
+          className={styles.inputField}
           type="text"
-          placeholder="Your First Name"
+          onChange={(e) => {
+            setStorage("firstName", e.target.value);
+            setFirstName(e.target.value);
+          }}
           value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
+          required
         />
         <br />
+
+        <label className={styles.label}> Last Name </label>
         <input
+          className={styles.inputField}
           type="text"
-          placeholder=" Your Last Name"
+          onChange={(e) => {
+            setStorage("lastName", e.target.value);
+            setLastName(e.target.value);
+          }}
           value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
+          required
         />
         <br />
+
+        <label className={styles.label}> Email </label>
         <input
-          type="email"
-          placeholder="Your Email"
+          className={styles.inputField}
+          type="Email"
+          onChange={(e) => {
+            setStorage("email", e.target.value);
+            setEmail(e.target.value);
+          }}
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          required
         />
         <br />
+
+        <label className={styles.label}> Password </label>
         <input
+          className={styles.inputField}
           type="password"
-          placeholder="Your Password"
+          onChange={(e) => {
+            setStorage("password", e.target.value);
+            setPassword(e.target.value);
+          }}
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          required
         />
         <br />
-        <button type="submit">Login</button>
+
+        <button className={styles.button} disabled={disabled}>
+          LOGIN
+        </button>
       </form>
     </div>
   );

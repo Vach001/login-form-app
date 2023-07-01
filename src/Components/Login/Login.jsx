@@ -6,7 +6,7 @@ const setStorage = (key, value) => {
 };
 const getStorage = (key) => JSON.parse(localStorage.getItem(key));
 
-export default function () {
+export default function Login() {
   const [firstName, setFirstName] = useState(getStorage("firstName") ?? "");
   const [lastName, setLastName] = useState(getStorage("lastName") ?? "");
   const [email, setEmail] = useState(getStorage("email") ?? "");
@@ -24,8 +24,8 @@ export default function () {
 
   return (
     <div className={styles.loginForm}>
-        <><h1>LOGIN YOUR ACCOUNT</h1></>
-      <form>
+      <h1>LOGIN YOUR ACCOUNT</h1>
+      <form className={styles.form}>
         <label className={styles.label}> First Name </label>
         <input
           className={styles.inputField}
